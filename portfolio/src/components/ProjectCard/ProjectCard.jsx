@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, CardContent, Button, Box } from '@mui/material';
-import AnimatedElement from '../shared/AnimatedElement';
+import { Card, CardContent, Button, Box, Typography } from '@mui/material';
+import AnimatedElement from '../../components/AnimatedElement/AnimatedElement';
 import styles from './ProjectCard.module.css';
 
 /**
@@ -9,9 +9,10 @@ import styles from './ProjectCard.module.css';
  * @param {Object} props 
  * @param {string} props.imageUrl - URL of the background image for the card
  * @param {string} props.projectUrl - URL to the project repository or live demo
+ * @param {string} props.title - Project title
  * @param {number} props.delay - Animation delay in ms
  */
-const ProjectCard = ({ imageUrl, projectUrl, delay = 0 }) => {
+const ProjectCard = ({ imageUrl, projectUrl, title, delay = 0 }) => {
   return (
     <AnimatedElement animation="zoomIn" delay={delay}>
       <Card 
@@ -24,6 +25,16 @@ const ProjectCard = ({ imageUrl, projectUrl, delay = 0 }) => {
       >
         <Box className={styles.overlay}>
           <CardContent className={styles.cardContent}>
+            {title && (
+              <Typography 
+                variant="h6" 
+                className={styles.projectTitle}
+                gutterBottom
+              >
+                {title}
+              </Typography>
+            )}
+            
             <Button
               variant="outlined"
               color="inherit"

@@ -43,9 +43,26 @@
   width: 100%;
   height: 100%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-end;
   padding: 2rem !important;
+}
+
+.projectTitle {
+  color: white !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1rem !important;
+  font-weight: 600 !important;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.3s ease;
+  transition-delay: 0.1s;
+}
+
+.projectCard:hover .projectTitle {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .viewButton {
@@ -59,6 +76,14 @@
   letter-spacing: 1px !important;
   background-color: rgba(0, 0, 0, 0.5) !important;
   transition: all 0.3s ease !important;
+  transform: translateY(20px);
+  opacity: 0;
+  transition-delay: 0.2s;
+}
+
+.projectCard:hover .viewButton {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 .viewButton:hover {
@@ -91,5 +116,10 @@
   .viewButton {
     font-size: 0.7rem !important;
     padding: 4px 12px !important;
+  }
+  
+  .projectTitle {
+    font-size: 1rem !important;
+    margin-bottom: 0.5rem !important;
   }
 } 

@@ -12,32 +12,11 @@ import DownloadIcon from '@mui/icons-material/Download';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
 import AnimatedElement from '../../components/AnimatedElement/AnimatedElement';
-import useCounter from '../../hooks/useCounter';
+import AnimatedCounter from '../../components/shared/AnimatedCounter';
 import ProfileImageAnimation from '../../components/ProfileImage/ProfileImageAnimation';
 import Scrambler from '../../components/Scrambler/Scrambler';
 import profileImage from '../../assets/images/imgme.jpg';
 import styles from './Home.module.css';
-
-// Component to display animated counter with label
-const AnimatedCounter = ({ end, label, duration = 2000 }) => {
-  const [ref, inView] = React.useState(null);
-  const count = useCounter({ 
-    end, 
-    duration,
-    enabled: inView
-  });
-
-  return (
-    <Box className={styles.counterItem} ref={ref}>
-      <Typography variant="h2" className={styles.counterValue}>
-        {count}+
-      </Typography>
-      <Typography variant="body1" className={styles.counterLabel}>
-        {label}
-      </Typography>
-    </Box>
-  );
-};
 
 const Home = () => {
   const theme = useTheme();
@@ -69,11 +48,16 @@ const Home = () => {
           
           <AnimatedElement animation="fade" delay={300}>
             <Typography variant="h1" className={styles.name}>
-              <Scrambler text="Abdullah Iftikhar" delay={300} speed={5} />
+              <Scrambler 
+                text="Abdullah Iftikhar" 
+                delay={200} 
+                speed={3} 
+                active={true}
+              />
             </Typography>
           </AnimatedElement>
           
-          <AnimatedElement animation="slide-up" delay={500}>
+          <AnimatedElement animation="fade" delay={500}>
             <Typography variant="h4" className={styles.title}>
               CS Student & Developer
             </Typography>
@@ -118,7 +102,8 @@ const Home = () => {
             <ProfileImageAnimation 
               src={profileImage} 
               alt="Abdullah Iftikhar" 
-              size={isMobile ? 240 : 300}
+              size={isMobile ? 250 : 300}
+              active={true}
             />
           </AnimatedElement>
         </Grid>

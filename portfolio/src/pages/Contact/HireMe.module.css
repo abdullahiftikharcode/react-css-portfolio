@@ -1,0 +1,142 @@
+/* HireMe.module.css */
+.hireMeContainer {
+  padding: 3rem 0;
+}
+
+.pageHeader {
+  margin-bottom: 3rem;
+  text-align: center;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pageSubtitle {
+  color: var(--primary-color);
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.pageTitle {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.pageDescription {
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.contactInfoSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sectionTitle {
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.sectionTitle::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(45deg, #2196f3, #00bcd4);
+  border-radius: 3px;
+}
+
+.contactInfoItem {
+  margin-bottom: 1.5rem;
+}
+
+.contactInfoItem h6 {
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.contactLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.contactLink:hover {
+  color: var(--primary-color);
+}
+
+.socialLinks {
+  margin-top: auto;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.socialLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.socialLink:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.formSection {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  padding: 2rem;
+  height: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Responsive Styles */
+@media (max-width: 960px) {
+  .pageHeader {
+    text-align: left;
+    padding: 0 1rem;
+  }
+  
+  .contactInfoSection,
+  .formSection {
+    margin-bottom: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .hireMeContainer {
+    padding: 2rem 0;
+  }
+  
+  .pageHeader {
+    margin-bottom: 2rem;
+  }
+  
+  .sectionTitle {
+    font-size: 1.5rem;
+  }
+} 
