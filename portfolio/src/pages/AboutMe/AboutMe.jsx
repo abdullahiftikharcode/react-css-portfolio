@@ -14,14 +14,47 @@ import {
   useMediaQuery,
   useTheme
 } from '@mui/material';
-import AnimatedElement from '../../components/shared/AnimatedElement';
-import ProgressBar from '../../components/shared/ProgressBar';
-import SkillCard from '../../components/shared/SkillCard';
+import AnimatedElement from '../../components/AnimatedElement/AnimatedElement';
+import Scrambler from '../../components/Scrambler/Scrambler';
 import figmaIcon from '../../assets/images/figma.png';
 import unityIcon from '../../assets/images/unity.png';
 import androidIcon from '../../assets/images/android.png';
 import mysqlIcon from '../../assets/images/mysql.png';
 import styles from './AboutMe.module.css';
+
+// Progress Bar component with animation
+const ProgressBar = ({ skill, value, delay = 0 }) => {
+  return (
+    <AnimatedElement animation="slide-right" delay={delay}>
+      <Box className={styles.progressBarContainer}>
+        <Box className={styles.progressBarHeader}>
+          <Typography variant="body1">{skill}</Typography>
+          <Typography variant="body2">{value}%</Typography>
+        </Box>
+        <Box className={styles.progressBarWrapper}>
+          <Box 
+            className={styles.progressBarFill} 
+            sx={{ width: `${value}%` }}
+          />
+        </Box>
+      </Box>
+    </AnimatedElement>
+  );
+};
+
+// Skill Card component with animation
+const SkillCard = ({ name, icon, delay = 0 }) => {
+  return (
+    <AnimatedElement animation="zoom" delay={delay}>
+      <Box className={styles.skillCard}>
+        <img src={icon} alt={name} className={styles.skillIcon} />
+        <Typography variant="body2" className={styles.skillName}>
+          {name}
+        </Typography>
+      </Box>
+    </AnimatedElement>
+  );
+};
 
 const AboutMe = () => {
   const theme = useTheme();
@@ -72,19 +105,19 @@ const AboutMe = () => {
   return (
     <Container className={styles.aboutContainer}>
       {/* About Me Section */}
-      <AnimatedElement animation="fadeInUp">
+      <AnimatedElement animation="fade">
         <Box className={styles.aboutSection}>
           <Typography variant="subtitle1" className={styles.sectionLabel}>
-            WHO I AM
+            <Scrambler text="WHO I AM" delay={100} speed={3} />
           </Typography>
           <Box className={styles.aboutContent}>
-            <AnimatedElement animation="fadeInUp" delay={300}>
+            <AnimatedElement animation="slide-up" delay={300}>
               <Typography variant="h3" className={styles.mainHeading}>
                 Transforming your vision into a dynamic web experience through meticulously crafted designs, intuitive user interfaces, and robust functionality.
               </Typography>
             </AnimatedElement>
             
-            <AnimatedElement animation="fadeInUp" delay={500}>
+            <AnimatedElement animation="slide-up" delay={500}>
               <Box className={styles.aboutText}>
                 <Typography variant="body1">
                   Hi there! I'm Abdullah, a web and application designer with a passion for creating exceptional digital experiences.
@@ -102,89 +135,95 @@ const AboutMe = () => {
       </AnimatedElement>
 
       {/* Skills Section */}
-      <Box className={styles.skillsSection}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" className={styles.sectionLabel}>
-              MY SKILLS
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={10}>
-            <Grid container spacing={3}>
-              {skillCards.map((skill, index) => (
-                <Grid item xs={6} sm={3} key={index}>
-                  <SkillCard
-                    name={skill.name}
-                    icon={skill.icon}
-                    delay={index * 200}
-                  />
-                </Grid>
-              ))}
+      <AnimatedElement animation="fade" delay={200}>
+        <Box className={styles.skillsSection}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" className={styles.sectionLabel}>
+                <Scrambler text="MY SKILLS" delay={300} speed={3} />
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={10}>
+              <Grid container spacing={3}>
+                {skillCards.map((skill, index) => (
+                  <Grid item xs={6} sm={3} key={index}>
+                    <SkillCard
+                      name={skill.name}
+                      icon={skill.icon}
+                      delay={index * 200}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </AnimatedElement>
 
       {/* Coding Skills Section */}
-      <Box className={styles.codingSkillsSection}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" className={styles.sectionLabel}>
-              CODING SKILLS
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={10}>
-            <Grid container spacing={3}>
-              {codingSkills.map((skill, index) => (
-                <Grid item xs={12} md={6} key={index}>
-                  <ProgressBar
-                    skill={skill.skill}
-                    value={skill.value}
-                    delay={index * 150}
-                  />
-                </Grid>
-              ))}
+      <AnimatedElement animation="fade" delay={400}>
+        <Box className={styles.codingSkillsSection}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" className={styles.sectionLabel}>
+                <Scrambler text="CODING SKILLS" delay={500} speed={3} />
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={10}>
+              <Grid container spacing={3}>
+                {codingSkills.map((skill, index) => (
+                  <Grid item xs={12} md={6} key={index}>
+                    <ProgressBar
+                      skill={skill.skill}
+                      value={skill.value}
+                      delay={600 + (index * 150)}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </AnimatedElement>
 
       {/* Education Section */}
-      <Box className={styles.educationSection}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={2}>
-            <Typography variant="subtitle1" className={styles.sectionLabel}>
-              EDUCATION
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={10}>
-            <AnimatedElement animation="fadeIn" delay={300}>
-              <TableContainer component={Paper} className={styles.tableContainer}>
-                <Table className={styles.table}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Institution</TableCell>
-                      <TableCell>Qualification</TableCell>
-                      <TableCell>Passing Year</TableCell>
-                      <TableCell>Score</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {educationData.map((row, index) => (
-                      <TableRow key={index}>
-                        <TableCell>{row.institution}</TableCell>
-                        <TableCell>{row.qualification}</TableCell>
-                        <TableCell>{row.year}</TableCell>
-                        <TableCell>{row.score}</TableCell>
+      <AnimatedElement animation="fade" delay={800}>
+        <Box className={styles.educationSection}>
+          <Grid container spacing={3}>
+            <Grid item xs={12} md={2}>
+              <Typography variant="subtitle1" className={styles.sectionLabel}>
+                <Scrambler text="EDUCATION" delay={900} speed={3} />
+              </Typography>
+            </Grid>
+            <Grid item xs={12} md={10}>
+              <AnimatedElement animation="slide-up" delay={1000}>
+                <TableContainer component={Paper} className={styles.tableContainer}>
+                  <Table className={styles.table}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Institution</TableCell>
+                        <TableCell>Qualification</TableCell>
+                        <TableCell>Passing Year</TableCell>
+                        <TableCell>Score</TableCell>
                       </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </AnimatedElement>
+                    </TableHead>
+                    <TableBody>
+                      {educationData.map((row, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{row.institution}</TableCell>
+                          <TableCell>{row.qualification}</TableCell>
+                          <TableCell>{row.year}</TableCell>
+                          <TableCell>{row.score}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </AnimatedElement>
+            </Grid>
           </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      </AnimatedElement>
     </Container>
   );
 };

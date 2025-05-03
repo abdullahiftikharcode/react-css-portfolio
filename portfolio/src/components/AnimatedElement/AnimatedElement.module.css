@@ -1,0 +1,127 @@
+/* AnimatedElement.module.css */
+.animatedElement {
+  will-change: transform, opacity;
+  transform-origin: center;
+  animation-fill-mode: both;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Base initial states for different animations */
+.fade {
+  opacity: 0;
+}
+
+.slideUp {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
+.slideDown {
+  opacity: 0;
+  transform: translateY(-50px);
+}
+
+.slideLeft {
+  opacity: 0;
+  transform: translateX(50px);
+}
+
+.slideRight {
+  opacity: 0;
+  transform: translateX(-50px);
+}
+
+.zoom {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* Animation keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations when .animate class is added */
+.fade.animate {
+  animation-name: fadeIn;
+}
+
+.slideUp.animate {
+  animation-name: slideUp;
+}
+
+.slideDown.animate {
+  animation-name: slideDown;
+}
+
+.slideLeft.animate {
+  animation-name: slideLeft;
+}
+
+.slideRight.animate {
+  animation-name: slideRight;
+}
+
+.zoom.animate {
+  animation-name: zoomIn;
+} 
