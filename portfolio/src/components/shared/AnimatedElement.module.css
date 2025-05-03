@@ -1,0 +1,101 @@
+/* src/components/shared/AnimatedElement.module.css */
+.animatedElement {
+  opacity: 0;
+  transition-duration: 0.6s;
+  transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition-delay: var(--animation-delay, 0ms);
+}
+
+.animatedElement.animate {
+  opacity: 1;
+}
+
+/* Fade In */
+.fadeIn {
+  opacity: 0;
+}
+
+/* Fade In Up */
+.fadeInUp {
+  opacity: 0;
+  transform: translateY(30px);
+  transition-property: opacity, transform;
+}
+
+.fadeInUp.animate {
+  transform: translateY(0);
+}
+
+/* Fade In Left */
+.fadeInLeft {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition-property: opacity, transform;
+}
+
+.fadeInLeft.animate {
+  transform: translateX(0);
+}
+
+/* Fade In Right */
+.fadeInRight {
+  opacity: 0;
+  transform: translateX(30px);
+  transition-property: opacity, transform;
+}
+
+.fadeInRight.animate {
+  transform: translateX(0);
+}
+
+/* Zoom In */
+.zoomIn {
+  opacity: 0;
+  transform: scale(0.9);
+  transition-property: opacity, transform;
+}
+
+.zoomIn.animate {
+  transform: scale(1);
+}
+
+/* Flip In */
+.flipIn {
+  opacity: 0;
+  transform: perspective(400px) rotateY(90deg);
+  transition-property: opacity, transform;
+}
+
+.flipIn.animate {
+  transform: perspective(400px) rotateY(0deg);
+}
+
+/* Bounce In */
+.bounceIn {
+  opacity: 0;
+  transform: scale(0.3);
+  transition-property: opacity, transform;
+}
+
+.bounceIn.animate {
+  animation: bounceInAnimation 0.6s;
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes bounceInAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+} 
