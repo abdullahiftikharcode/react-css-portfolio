@@ -82,11 +82,12 @@ const ContactForm = () => {
   };
 
   return (
-    <Box className={styles.formContainer}>
-      <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
-        <Grid container spacing={3}>
-          {/* Left Column - Name, Email, Phone */}
-          <Grid item xs={12} md={6}>
+    <form onSubmit={handleSubmit(onSubmit)} id="contactForm" className={styles.contactForm}>
+      <Grid container spacing={3}>
+        {/* Left Column - Name, Email, Phone (in desktop view, stacked in mobile) */}
+        <Grid item xs={12} md={6}>
+          {/* Name Field */}
+          <Box className={styles.formField}>
             <Controller
               name="name"
               control={control}
@@ -96,14 +97,16 @@ const ContactForm = () => {
                   label="Name"
                   variant="outlined"
                   fullWidth
-                  margin="normal"
                   error={!!errors.name}
                   helperText={errors.name?.message}
-                  className={styles.formField}
+                  className={styles.textField}
                 />
               )}
             />
-            
+          </Box>
+          
+          {/* Email Field */}
+          <Box className={styles.formField}>
             <Controller
               name="email"
               control={control}
@@ -113,14 +116,16 @@ const ContactForm = () => {
                   label="Email"
                   variant="outlined"
                   fullWidth
-                  margin="normal"
                   error={!!errors.email}
                   helperText={errors.email?.message}
-                  className={styles.formField}
+                  className={styles.textField}
                 />
               )}
             />
-            
+          </Box>
+          
+          {/* Phone Field */}
+          <Box className={styles.formField}>
             <Controller
               name="phone"
               control={control}
@@ -130,17 +135,18 @@ const ContactForm = () => {
                   label="Phone"
                   variant="outlined"
                   fullWidth
-                  margin="normal"
                   error={!!errors.phone}
                   helperText={errors.phone?.message}
-                  className={styles.formField}
+                  className={styles.textField}
                 />
               )}
             />
-          </Grid>
-          
-          {/* Right Column - Message */}
-          <Grid item xs={12} md={6}>
+          </Box>
+        </Grid>
+        
+        {/* Right Column - Message */}
+        <Grid item xs={12} md={6}>
+          <Box className={styles.formField}>
             <Controller
               name="message"
               control={control}
@@ -151,28 +157,27 @@ const ContactForm = () => {
                   variant="outlined"
                   fullWidth
                   multiline
-                  rows={11}
-                  margin="normal"
+                  rows={9}
                   error={!!errors.message}
                   helperText={errors.message?.message}
                   className={styles.messageField}
                 />
               )}
             />
-          </Grid>
+          </Box>
         </Grid>
-        
-        <Box className={styles.buttonContainer}>
-          <Button 
-            type="submit" 
-            variant="contained" 
-            color="primary"
-            className={styles.submitButton}
-          >
-            Submit
-          </Button>
-        </Box>
-      </form>
+      </Grid>
+      
+      {/* Submit Button */}
+      <Box className={styles.buttonContainer}>
+        <Button 
+          type="submit" 
+          variant="contained" 
+          className={styles.submitButton}
+        >
+          Submit
+        </Button>
+      </Box>
       
       {/* Success/Error Notification */}
       <Snackbar 
@@ -190,7 +195,7 @@ const ContactForm = () => {
           {snackbar.message}
         </Alert>
       </Snackbar>
-    </Box>
+    </form>
   );
 };
 

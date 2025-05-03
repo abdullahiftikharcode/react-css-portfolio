@@ -32,21 +32,19 @@ const MainLayout = () => {
     } else if (pathname === '/works') {
       title = 'My Projects';
     } else if (pathname === '/hire-me') {
-      title = 'Contact Me';
+      title = 'Hire Me';
     }
     
     setPageTitle(title);
   }, [location, setPageTitle]);
 
   return (
-    <Box 
-      className={`${styles.layoutContainer} ${sidebarOpen && isDesktop ? styles.sidebarOpen : ''}`}
-    >
-      <Header toggleSidebar={toggleSidebar} />
+    <Box className={`${styles.layoutContainer} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+      <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
       <SideNav open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <Box 
         component="main" 
-        className={`${styles.mainContent} ${styles.pageTransition}`}
+        className={`${styles.mainContent} ${sidebarOpen && isDesktop ? styles.contentShifted : ''} ${styles.pageTransition}`}
       >
         <Outlet />
       </Box>

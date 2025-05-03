@@ -21,7 +21,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import profileImage from '../../assets/images/profileImage.jpg';
+import profileImage from '../../assets/images/imgme.jpg';
 import styles from './SideNav.module.css';
 
 const SideNav = ({ open, onClose }) => {
@@ -38,7 +38,6 @@ const SideNav = ({ open, onClose }) => {
   ];
 
   const handleDownloadCV = () => {
-    // Replace with actual path to your CV
     window.open('/assets/AbdullahIftikharResume.pdf', '_blank');
   };
 
@@ -121,13 +120,13 @@ const SideNav = ({ open, onClose }) => {
 
   return (
     <Drawer
-      variant={isMobile ? "temporary" : "permanent"}
-      open={isMobile ? open : true}
+      variant={isMobile ? "temporary" : "persistent"}
+      open={isMobile ? open : open}
       onClose={onClose}
       ModalProps={{
         keepMounted: true, // Better mobile performance
       }}
-      className={styles.drawer}
+      className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
       classes={{
         paper: styles.drawerPaper,
       }}

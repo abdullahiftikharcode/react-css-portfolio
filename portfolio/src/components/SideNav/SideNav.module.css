@@ -2,14 +2,23 @@
 .drawer {
     width: 280px;
     flex-shrink: 0;
+    transition: all 0.3s ease-in-out;
   }
   
   .drawerPaper {
     width: 280px;
-    background-color: rgba(33, 33, 33, 0.97) !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
     color: white !important;
     height: 100%;
     overflow-y: auto;
+    border-right: 3px solid rgba(255, 255, 255, 0.3) !important;
+    transition: left 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 0 10px 10px 0;
+  }
+  
+  .drawerOpen .drawerPaper {
+    transform: translateX(0) !important;
   }
   
   .sidebar {
@@ -28,13 +37,12 @@
   }
   
   .profileImageContainer {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     margin-bottom: 1rem;
     border: 3px solid rgba(255, 255, 255, 0.2);
-    animation: pulseAnimation 2s infinite;
   }
   
   .profileImage {
@@ -46,11 +54,13 @@
   .name {
     font-weight: 600 !important;
     margin-bottom: 0.3rem !important;
+    font-size: 1.1rem !important;
   }
   
   .title {
     color: rgba(255, 255, 255, 0.7) !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
+    text-transform: uppercase;
   }
   
   /* Navigation Menu */
@@ -59,18 +69,23 @@
   }
   
   .menuItem {
-    padding: 0.8rem 1.5rem !important;
-    color: rgba(255, 255, 255, 0.85) !important;
+    padding: 10px !important;
+    color: white !important;
+    text-decoration: none !important;
     transition: background-color 0.2s ease-in-out !important;
+    margin: 0 10px 5px 10px !important;
+    border-radius: 5px !important;
   }
   
   .menuItem:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(255, 255, 255, 0.2) !important;
   }
   
   .active {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    border-left: 3px solid #fff !important;
+    border: 4px solid rgba(255, 255, 255, 0.5) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    font-weight: bold !important;
+    border-radius: 20px !important;
   }
   
   .menuIcon {
@@ -85,7 +100,8 @@
   }
   
   .divider {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+    width: 100% !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.2) !important;
     margin: 0.5rem 0 1rem !important;
   }
   
@@ -105,16 +121,25 @@
     text-transform: none !important;
   }
   
+  .downloadButton:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4) !important;
+  }
+  
   .infoBox {
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 0.8rem;
-    width: 100%;
+    width: 200px;
+    min-height: 60px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
   }
   
   .infoItem {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-bottom: 0.5rem;
     gap: 0.5rem;
   }
@@ -128,26 +153,22 @@
     font-size: 0.8rem !important;
   }
   
-  /* Animation for profile image */
-  @keyframes pulseAnimation {
-    0% {
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
-    }
-    70% {
-      box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
-    }
-  }
-  
   /* Responsive behavior */
   @media (max-width: 768px) {
     .drawer {
-      width: 240px;
+      width: 250px;
     }
     
     .drawerPaper {
-      width: 240px;
+      width: 250px;
+    }
+    
+    .profileImageContainer {
+      width: 60px;
+      height: 60px;
+    }
+    
+    .infoBox {
+      width: 180px;
     }
   }

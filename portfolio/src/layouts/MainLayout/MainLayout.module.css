@@ -10,6 +10,12 @@
   flex-grow: 1;
   padding: 24px;
   margin-top: 64px; /* Adjust based on your header height */
+  transition: all 0.3s ease-in-out;
+}
+
+/* Content shifting when sidebar is open on desktop */
+.contentShifted {
+  margin-left: 280px; /* Width of the sidebar */
 }
 
 /* Media query for desktop view with open sidebar */

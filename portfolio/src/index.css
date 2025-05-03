@@ -1,3 +1,23 @@
+/* Light Theme (Default) */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --header-bg: #f8f9fa;
+  --footer-bg: #f8f9fa;
+  --button-bg: #ffffff;
+  --button-text: #000000;
+}
+
+/* Dark Theme Overrides */
+.dark-theme {
+  --bg-color: #121212;
+  --text-color: #f8f9fa;
+  --header-bg: #1f1f1f;
+  --footer-bg: #1f1f1f;
+  --button-bg: #1f1f1f;
+  --button-text: #f8f9fa;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,9 +25,28 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+  transition: background-color 0.3s ease, color 0.3s ease !important;
+  overflow-x: hidden;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.page-content {
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

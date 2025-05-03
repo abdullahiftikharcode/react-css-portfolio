@@ -1,36 +1,26 @@
 /* src/components/ContactForm/ContactForm.module.css */
-.formContainer {
-  margin: 2rem 0;
-  width: 100%;
-}
-
-.form {
+.contactForm {
   width: 100%;
 }
 
 .formField {
-  margin-bottom: 1rem !important;
+  margin-bottom: 1.5rem;
 }
 
-.formField label,
+.textField label,
 .messageField label {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--text-color) !important;
 }
 
-.formField input,
+.textField input,
 .messageField textarea {
-  color: rgba(255, 255, 255, 0.9) !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: var(--text-color) !important;
+  border-color: rgba(128, 128, 128, 0.3) !important;
 }
 
-.formField input:focus,
+.textField input:focus,
 .messageField textarea:focus {
-  border-color: #2196f3 !important;
-}
-
-.formField .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline,
-.messageField .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
-  border-color: #2196f3 !important;
+  border-color: var(--text-color) !important;
 }
 
 .messageField {
@@ -39,7 +29,6 @@
 
 .messageField textarea {
   height: 100%;
-  min-height: 200px;
 }
 
 .buttonContainer {
@@ -49,43 +38,33 @@
 }
 
 .submitButton {
-  background: linear-gradient(45deg, #2196f3, #00bcd4) !important;
   border-radius: 50px !important;
-  padding: 0.75rem 2.5rem !important;
-  text-transform: none !important;
-  font-size: 1rem !important;
-  font-weight: 600 !important;
-  box-shadow: 0 4px 10px rgba(33, 150, 243, 0.3) !important;
-  transition: all 0.3s ease !important;
+  border: 2px solid var(--button-text) !important;
+  background-color: var(--button-bg) !important;
+  color: var(--button-text) !important;
+  padding: 0.5rem 1.5rem !important;
+  transition: background-color 0.3s, color 0.3s !important;
 }
 
 .submitButton:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(33, 150, 243, 0.4) !important;
+  background-color: var(--button-text) !important;
+  color: var(--button-bg) !important;
 }
 
 /* Error state styling */
-.formField.Mui-error fieldset,
+.textField.Mui-error fieldset,
 .messageField.Mui-error fieldset {
   border-color: #f44336 !important;
 }
 
-/* Success animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* Media query for mobile */
+@media (max-width: 768px) {
+  .formField {
+    margin-bottom: 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Responsive adjustments */
-@media (max-width: 960px) {
-  .messageField textarea {
-    min-height: 150px;
+  
+  .buttonContainer {
+    justify-content: center;
   }
   
   .submitButton {
