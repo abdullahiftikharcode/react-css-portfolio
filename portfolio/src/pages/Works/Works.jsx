@@ -1,8 +1,36 @@
 import React from 'react';
-import { Container, Grid, Typography, Box } from '@mui/material';
-import AnimatedElement from '../../components/shared/AnimatedElement';
-import ProjectCard from '../../components/ProjectCard/ProjectCard';
+import { Container, Grid, Typography, Box, Card, CardMedia, CardActionArea } from '@mui/material';
+import AnimatedElement from '../../components/AnimatedElement/AnimatedElement';
+import Scrambler from '../../components/Scrambler/Scrambler';
 import styles from './Works.module.css';
+
+// ProjectCard component with animation
+const ProjectCard = ({ imageUrl, projectUrl, delay = 0 }) => {
+  return (
+    <AnimatedElement animation="zoom" delay={delay}>
+      <Card className={styles.projectCard}>
+        <CardActionArea 
+          href={projectUrl} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className={styles.cardActionArea}
+        >
+          <CardMedia
+            component="img"
+            image={imageUrl}
+            alt="Project Preview"
+            className={styles.projectImage}
+          />
+          <div className={styles.projectOverlay}>
+            <Typography className={styles.viewProjectText}>
+              View Project
+            </Typography>
+          </div>
+        </CardActionArea>
+      </Card>
+    </AnimatedElement>
+  );
+};
 
 const Works = () => {
   // Project data
@@ -30,9 +58,9 @@ const Works = () => {
       <Grid container spacing={3}>
         {/* Section Title */}
         <Grid item xs={12} md={2}>
-          <AnimatedElement animation="fadeInLeft">
+          <AnimatedElement animation="slide-right">
             <Typography variant="subtitle1" className={styles.sectionTitle}>
-              MY REPOSITORIES
+              <Scrambler text="MY REPOSITORIES" delay={200} speed={3} />
             </Typography>
           </AnimatedElement>
         </Grid>
@@ -45,7 +73,7 @@ const Works = () => {
                 <ProjectCard
                   imageUrl={project.imageUrl}
                   projectUrl={project.projectUrl}
-                  delay={index * 150}
+                  delay={300 + (index * 150)}
                 />
               </Grid>
             ))}
@@ -55,9 +83,9 @@ const Works = () => {
       
       {/* Additional Projects Section - You can add more sections as needed */}
       <Box className={styles.additionalSection}>
-        <AnimatedElement animation="fadeInUp" delay={300}>
+        <AnimatedElement animation="slide-up" delay={800}>
           <Typography variant="h5" className={styles.sectionHeading}>
-            More Projects Coming Soon
+            <Scrambler text="More Projects Coming Soon" delay={900} speed={4} />
           </Typography>
           <Typography variant="body1" className={styles.sectionText}>
             I'm constantly working on new and exciting projects. Check back soon for more updates!

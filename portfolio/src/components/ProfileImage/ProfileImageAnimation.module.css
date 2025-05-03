@@ -1,0 +1,42 @@
+/* ProfileImageAnimation.module.css */
+.profileWrapper {
+  position: relative;
+  border-radius: 50%;
+  overflow: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animationCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.profileImage {
+  position: relative;
+  border-radius: 50%;
+  object-fit: cover;
+  z-index: 2;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Animation keyframes for when the profile image enters the viewport */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.7);
+  }
+}
+
+.profileWrapper.animate .profileImage {
+  animation: pulseGlow 3s infinite ease-in-out;
+} 

@@ -11,10 +11,33 @@ import {
 import DownloadIcon from '@mui/icons-material/Download';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
-import AnimatedElement from '../../components/shared/AnimatedElement';
-import AnimatedCounter from '../../components/shared/AnimatedCounter';
+import AnimatedElement from '../../components/AnimatedElement/AnimatedElement';
+import useCounter from '../../hooks/useCounter';
+import ProfileImageAnimation from '../../components/ProfileImage/ProfileImageAnimation';
+import Scrambler from '../../components/Scrambler/Scrambler';
 import profileImage from '../../assets/images/imgme.jpg';
 import styles from './Home.module.css';
+
+// Component to display animated counter with label
+const AnimatedCounter = ({ end, label, duration = 2000 }) => {
+  const [ref, inView] = React.useState(null);
+  const count = useCounter({ 
+    end, 
+    duration,
+    enabled: inView
+  });
+
+  return (
+    <Box className={styles.counterItem} ref={ref}>
+      <Typography variant="h2" className={styles.counterValue}>
+        {count}+
+      </Typography>
+      <Typography variant="body1" className={styles.counterLabel}>
+        {label}
+      </Typography>
+    </Box>
+  );
+};
 
 const Home = () => {
   const theme = useTheme();
@@ -38,25 +61,25 @@ const Home = () => {
       <Grid container spacing={4} className={styles.heroSection}>
         {/* Left Column - Text Content */}
         <Grid item xs={12} md={7} className={styles.heroContent}>
-          <AnimatedElement animation="fadeInUp" delay={100}>
+          <AnimatedElement animation="fade" delay={100}>
             <Typography variant="h6" className={styles.greeting}>
               Hello I'm
             </Typography>
           </AnimatedElement>
           
-          <AnimatedElement animation="fadeInUp" delay={300}>
+          <AnimatedElement animation="fade" delay={300}>
             <Typography variant="h1" className={styles.name}>
-              Abdullah Iftikhar
+              <Scrambler text="Abdullah Iftikhar" delay={300} speed={5} />
             </Typography>
           </AnimatedElement>
           
-          <AnimatedElement animation="fadeInUp" delay={500}>
+          <AnimatedElement animation="slide-up" delay={500}>
             <Typography variant="h4" className={styles.title}>
               CS Student & Developer
             </Typography>
           </AnimatedElement>
           
-          <AnimatedElement animation="fadeInUp" delay={700}>
+          <AnimatedElement animation="slide-up" delay={700}>
             <Typography variant="body1" className={styles.description}>
               Welcome to my portfolio! I'm passionate about creating interactive
               and responsive web applications. Currently pursuing a CS degree
@@ -64,7 +87,7 @@ const Home = () => {
             </Typography>
           </AnimatedElement>
           
-          <AnimatedElement animation="fadeInUp" delay={900}>
+          <AnimatedElement animation="slide-up" delay={900}>
             <Box className={styles.buttonGroup}>
               <Button
                 variant="contained"
@@ -91,20 +114,18 @@ const Home = () => {
         
         {/* Right Column - Profile Image */}
         <Grid item xs={12} md={5} className={styles.imageContainer}>
-          <AnimatedElement animation="zoomIn" delay={200}>
-            <div className={styles.profileImageWrapper}>
-              <img 
-                src={profileImage} 
-                alt="Abdullah Iftikhar" 
-                className={styles.profileImage}
-              />
-            </div>
+          <AnimatedElement animation="zoom" delay={200}>
+            <ProfileImageAnimation 
+              src={profileImage} 
+              alt="Abdullah Iftikhar" 
+              size={isMobile ? 240 : 300}
+            />
           </AnimatedElement>
         </Grid>
       </Grid>
       
       {/* Counter Statistics Section */}
-      <AnimatedElement animation="fadeIn" delay={500}>
+      <AnimatedElement animation="fade" delay={500}>
         <Box className={styles.statsSection}>
           <Grid container spacing={3}>
             {counters.map((counter, index) => (
