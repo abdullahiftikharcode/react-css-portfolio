@@ -21,7 +21,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import DownloadIcon from '@mui/icons-material/Download';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import profileImage from '../../assets/images/some.jpg';
+import profileImage from '../../assets/images/profileImage.jpg';
 import styles from './SideNav.module.css';
 
 const SideNav = ({ open, onClose }) => {
