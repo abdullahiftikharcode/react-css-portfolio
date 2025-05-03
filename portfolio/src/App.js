@@ -7,6 +7,7 @@ import MainLayout from './layouts/MainLayout/MainLayout';
 import Home from './pages/Home/Home';
 import AboutMe from './pages/AboutMe/AboutMe';
 import Works from './pages/Works/Works';
+import HireMe from './pages/Contact/HireMe';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
               <Route index element={<Home />} />
               <Route path="aboutme" element={<AboutMe />} />
               <Route path="works" element={<Works />} />
-              <Route path="hire-me" element={<div>Contact Page</div>} />
+              <Route path="hire-me" element={<HireMe />} />
             </Route>
           </Routes>
         </Router>
