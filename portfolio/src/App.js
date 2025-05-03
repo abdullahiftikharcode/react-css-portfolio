@@ -6,6 +6,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import MainLayout from './layouts/MainLayout/MainLayout';
 import Home from './pages/Home/Home';
 import AboutMe from './pages/AboutMe/AboutMe';
+import Works from './pages/Works/Works';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
             <Route path="/" element={<MainLayout />}>
               <Route index element={<Home />} />
               <Route path="aboutme" element={<AboutMe />} />
-              <Route path="works" element={<div>Works Page</div>} />
+              <Route path="works" element={<Works />} />
               <Route path="hire-me" element={<div>Contact Page</div>} />
             </Route>
           </Routes>
