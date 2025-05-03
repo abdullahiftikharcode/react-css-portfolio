@@ -13,7 +13,7 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Link } from 'react-router-dom';
 import AnimatedElement from '../../components/shared/AnimatedElement';
 import AnimatedCounter from '../../components/shared/AnimatedCounter';
-import profileImage from '../../assets/images/profileImage.jpg';
+import profileImage from '../../assets/images/imgme.jpg';
 import styles from './Home.module.css';
 
 const Home = () => {
