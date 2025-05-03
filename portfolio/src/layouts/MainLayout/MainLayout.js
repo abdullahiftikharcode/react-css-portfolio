@@ -48,10 +48,10 @@ const MainLayout = () => {
   return (
     <Box className={styles.layoutContainer}>
       <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
-      <SideNav open={sidebarOpen || isDesktop} onClose={() => !isDesktop && setSidebarOpen(false)} />
+      <SideNav open={sidebarOpen} onClose={() => setSidebarOpen(false)} className={sidebarOpen ? 'active' : ''} />
       <Box 
         component="main" 
-        className={`${styles.mainContent} ${sidebarOpen ? styles.contentShifted : ''} ${styles.pageTransition}`}
+        className={`content ${sidebarOpen ? 'active' : ''} ${styles.mainContent} ${sidebarOpen ? styles.contentShifted : ''} ${styles.pageTransition}`}
       >
         <Outlet />
       </Box>

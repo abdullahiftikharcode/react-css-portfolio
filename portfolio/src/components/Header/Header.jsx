@@ -42,12 +42,19 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
               {/* Menu Toggle Button */}
               <Button
                 className={`${styles.menuToggle} ${sidebarOpen ? styles.active : ''}`}
-                aria-label="open drawer"
+                aria-label={sidebarOpen ? "close drawer" : "open drawer"}
                 onClick={toggleSidebar}
                 variant="outlined"
                 size="small"
+                style={{ zIndex: 1400 }}
               >
-                <MenuIcon />
+                {sidebarOpen ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                  </svg>
+                ) : (
+                  <MenuIcon />
+                )}
               </Button>
               
               {/* Page Title */}
@@ -84,20 +91,22 @@ const Header = ({ toggleSidebar, sidebarOpen }) => {
       
       {/* Navigation Links */}
       <Container>
-        <Box className={styles.navHeader}>
-          {navItems.map((item) => (
-            <NavLink
-              key={item.label}
-              to={item.path}
-              className={({ isActive }) => 
-                isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
-              }
-              data-text={item.label}
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </Box>
+        {!(sidebarOpen && isMobile) && (
+          <Box className={styles.navHeader}>
+            {navItems.map((item) => (
+              <NavLink
+                key={item.label}
+                to={item.path}
+                className={({ isActive }) => 
+                  isActive ? `${styles.navItem} ${styles.active}` : styles.navItem
+                }
+                data-text={item.label}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </Box>
+        )}
       </Container>
     </Box>
   );

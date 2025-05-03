@@ -14,9 +14,9 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Content shifting when sidebar is open */
+/* Remove contentShifted margin-left for desktop */
 .contentShifted {
-  margin-left: 280px; /* Width of the sidebar */
+  margin-left: 0;
 }
 
 /* Media query for mobile view */
