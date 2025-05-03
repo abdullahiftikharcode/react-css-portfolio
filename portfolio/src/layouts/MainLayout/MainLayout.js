@@ -38,13 +38,20 @@ const MainLayout = () => {
     setPageTitle(title);
   }, [location, setPageTitle]);
 
+  // Close sidebar on mobile when route changes
+  useEffect(() => {
+    if (!isDesktop) {
+      setSidebarOpen(false);
+    }
+  }, [location.pathname, isDesktop]);
+
   return (
-    <Box className={`${styles.layoutContainer} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
+    <Box className={styles.layoutContainer}>
       <Header toggleSidebar={toggleSidebar} sidebarOpen={sidebarOpen} />
-      <SideNav open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+      <SideNav open={sidebarOpen || isDesktop} onClose={() => !isDesktop && setSidebarOpen(false)} />
       <Box 
         component="main" 
-        className={`${styles.mainContent} ${sidebarOpen && isDesktop ? styles.contentShifted : ''} ${styles.pageTransition}`}
+        className={`${styles.mainContent} ${sidebarOpen ? styles.contentShifted : ''} ${styles.pageTransition}`}
       >
         <Outlet />
       </Box>

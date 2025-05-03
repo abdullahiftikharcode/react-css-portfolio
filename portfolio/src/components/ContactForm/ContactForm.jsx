@@ -84,7 +84,7 @@ const ContactForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} id="contactForm" className={styles.contactForm}>
       <Grid container spacing={3}>
-        {/* Left Column - Name, Email, Phone (in desktop view, stacked in mobile) */}
+        {/* Left Column - Name, Email, Phone */}
         <Grid item xs={12} md={6}>
           {/* Name Field */}
           <Box className={styles.formField}>

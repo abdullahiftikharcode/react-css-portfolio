@@ -1,72 +1,90 @@
 /* src/components/ContactForm/ContactForm.module.css */
 .contactForm {
-  width: 100%;
+  background-color: var(--bg-color);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .formField {
   margin-bottom: 1.5rem;
 }
 
-.textField label,
-.messageField label {
-  color: var(--text-color) !important;
+.textField {
+  width: 100%;
 }
 
-.textField input,
-.messageField textarea {
-  color: var(--text-color) !important;
-  border-color: rgba(128, 128, 128, 0.3) !important;
+.textField :global(.MuiOutlinedInput-root) {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.textField input:focus,
-.messageField textarea:focus {
-  border-color: var(--text-color) !important;
+.textField :global(.MuiOutlinedInput-root:hover) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.textField :global(.MuiOutlinedInput-root.Mui-focused) {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .messageField {
-  height: 100%;
+  width: 100%;
+  min-height: 150px;
 }
 
-.messageField textarea {
-  height: 100%;
+.messageField :global(.MuiOutlinedInput-root) {
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  min-height: 150px;
+}
+
+.messageField :global(.MuiOutlinedInput-root:hover) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.messageField :global(.MuiOutlinedInput-root.Mui-focused) {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .buttonContainer {
   display: flex;
-  justify-content: flex-start;
-  margin-top: 1.5rem;
+  justify-content: flex-end;
+  margin-top: 2rem;
 }
 
 .submitButton {
   border-radius: 50px !important;
-  border: 2px solid var(--button-text) !important;
-  background-color: var(--button-bg) !important;
-  color: var(--button-text) !important;
-  padding: 0.5rem 1.5rem !important;
-  transition: background-color 0.3s, color 0.3s !important;
+  padding: 0.8rem 2rem !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  background: linear-gradient(45deg, #2196f3, #00bcd4) !important;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3) !important;
+  transition: all 0.3s ease !important;
 }
 
 .submitButton:hover {
-  background-color: var(--button-text) !important;
-  color: var(--button-bg) !important;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4) !important;
 }
 
-/* Error state styling */
-.textField.Mui-error fieldset,
-.messageField.Mui-error fieldset {
-  border-color: #f44336 !important;
+/* Dark theme adjustments */
+:global(.dark-theme) .textField :global(.MuiOutlinedInput-root),
+:global(.dark-theme) .messageField :global(.MuiOutlinedInput-root) {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-/* Media query for mobile */
+:global(.dark-theme) .textField :global(.MuiOutlinedInput-root:hover),
+:global(.dark-theme) .messageField :global(.MuiOutlinedInput-root:hover) {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Responsive adjustments */
 @media (max-width: 768px) {
-  .formField {
-    margin-bottom: 1rem;
+  .contactForm {
+    padding: 1.5rem;
   }
-  
-  .buttonContainer {
-    justify-content: center;
-  }
-  
+
   .submitButton {
     width: 100%;
   }

@@ -12,13 +12,19 @@
     height: 100%;
     overflow-y: auto;
     border-right: 3px solid rgba(255, 255, 255, 0.3) !important;
-    transition: left 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     border-radius: 0 10px 10px 0;
   }
   
-  .drawerOpen .drawerPaper {
-    transform: translateX(0) !important;
+  .drawerPaperClose {
+    width: 0;
+    overflow: hidden;
+    border-right: 0 !important;
+  }
+  
+  .drawerClosed {
+    width: 0;
   }
   
   .sidebar {
@@ -26,6 +32,7 @@
     flex-direction: column;
     height: 100%;
     padding: 0;
+    min-width: 280px;
   }
   
   /* Profile Section */

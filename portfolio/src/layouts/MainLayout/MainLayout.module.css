@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  position: relative;
   transition: margin-left 0.3s ease-in-out;
 }
 
@@ -13,19 +14,15 @@
   transition: all 0.3s ease-in-out;
 }
 
-/* Content shifting when sidebar is open on desktop */
+/* Content shifting when sidebar is open */
 .contentShifted {
   margin-left: 280px; /* Width of the sidebar */
 }
 
-/* Media query for desktop view with open sidebar */
-@media (min-width: 960px) {
-  .layoutContainer.sidebarOpen {
-    margin-left: 280px; /* Width of the sidebar */
-  }
-  
-  .mainContent {
-    transition: margin-left 0.3s ease-in-out;
+/* Media query for mobile view */
+@media (max-width: 768px) {
+  .contentShifted {
+    margin-left: 0;
   }
 }
 

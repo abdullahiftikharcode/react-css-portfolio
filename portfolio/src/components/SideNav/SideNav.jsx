@@ -120,15 +120,15 @@ const SideNav = ({ open, onClose }) => {
 
   return (
     <Drawer
-      variant={isMobile ? "temporary" : "persistent"}
-      open={isMobile ? open : open}
+      variant={isMobile ? "temporary" : "permanent"}
+      open={open}
       onClose={onClose}
       ModalProps={{
         keepMounted: true, // Better mobile performance
       }}
-      className={`${styles.drawer} ${open ? styles.drawerOpen : ''}`}
+      className={`${styles.drawer} ${open ? styles.drawerOpen : styles.drawerClosed}`}
       classes={{
-        paper: styles.drawerPaper,
+        paper: `${styles.drawerPaper} ${!open && !isMobile ? styles.drawerPaperClose : ''}`,
       }}
     >
       {drawerContent}
