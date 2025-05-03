@@ -1,0 +1,98 @@
+/* src/components/Header/Header.module.css */
+.header {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    padding: 1rem 0;
+  }
+  
+  .headerContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .titleSection {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menuButton {
+    margin-right: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 8px !important;
+    border-radius: 5px !important;
+  }
+  
+  .pageTitle {
+    font-weight: bold;
+  }
+  
+  .themeToggle {
+    border-radius: 50% !important;
+    height: 60px !important;
+    width: 60px !important;
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(128, 128, 128, 0.5) !important;
+  }
+  
+  .navigationContainer {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 1.5rem;
+  }
+  
+  .navItem {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .navItem:hover {
+    opacity: 0.8;
+  }
+  
+  /* Data-text hover effect */
+  .navItem::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: var(--accent-color, #3f51b5);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .navItem:hover::after {
+    opacity: 0.3;
+  }
+  
+  .active {
+    position: relative;
+    font-weight: bold;
+  }
+  
+  .active::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+  }
+  
+  @media (max-width: 768px) {
+    .navLinks {
+      gap: 0.8rem;
+      font-size: 0.9rem;
+    }
+  }
