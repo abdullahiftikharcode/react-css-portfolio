@@ -1,85 +1,87 @@
 /* src/components/Footer/Footer.module.css */
 .footer {
-    background-color: #212121;
-    color: white;
-    padding: 1.5rem 0;
-    margin-top: auto;
-    width: 100%;
+  background-color: #212121;
+  color: white;
+  padding: 1.5rem 0;
+  margin-top: auto;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .contentContainer {
+    flex-direction: row;
+    justify-content: space-between;
   }
-  
-  .footerContent {
-    width: 100%;
-  }
-  
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 768px) {
   .socialLinks {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    margin-bottom: 0;
   }
-  
-  .socialLink {
-    color: white;
-    text-decoration: none;
-    transition: transform 0.2s, opacity 0.2s;
-  }
-  
-  .socialLink:hover {
-    opacity: 0.8;
-    transform: translateY(-3px);
+}
+
+.socialLink {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.socialLink:hover {
+  color: #90caf9;
+}
+
+.emailContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.emailText {
+  font-size: 1rem;
+}
+
+.talkButton {
+  border-radius: 50px !important;
+  padding: 0.5rem 2rem !important;
+  text-transform: none !important;
+  font-size: 1.1rem !important;
+  margin-left: auto;
+  border-width: 2px !important;
+  transition: all 0.3s ease !important;
+}
+
+.talkButton:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) !important;
+}
+
+@media (max-width: 767px) {
+  .talkButton {
+    margin-top: 1rem;
+    margin-left: 0;
   }
   
   .emailContainer {
-    display: flex;
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+  
+  .socialLinks {
+    flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    margin-left: 0.5rem;
   }
-  
-  .emailText {
-    font-size: 1rem;
-  }
-  
-  .ctaButton {
-    color: white !important;
-    border-color: white !important;
-    border-radius: 50px !important;
-    padding: 0.5rem 1.5rem !important;
-    font-weight: 500 !important;
-    text-transform: none !important;
-    font-size: 1.1rem !important;
-    letter-spacing: 0.5px !important;
-    transition: all 0.3s ease !important;
-    overflow: hidden !important;
-    position: relative !important;
-  }
-  
-  .ctaButton:hover {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
-  }
-  
-  /* Scrambler text effect */
-  .scramblerText {
-    position: relative;
-    display: inline-block;
-  }
-  
-  /* Media Queries for Responsive Design */
-  @media (max-width: 768px) {
-    .socialLinks {
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    
-    .emailContainer {
-      margin-top: 0.5rem;
-      margin-left: 0;
-      width: 100%;
-      justify-content: center;
-    }
-    
-    .ctaButton {
-      margin-top: 1rem;
-    }
-  }
+} 

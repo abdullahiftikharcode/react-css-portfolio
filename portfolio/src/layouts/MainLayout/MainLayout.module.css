@@ -1,0 +1,40 @@
+/* src/layouts/MainLayout/MainLayout.module.css */
+.layoutContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease-in-out;
+}
+
+.mainContent {
+  flex-grow: 1;
+  padding: 24px;
+  margin-top: 64px; /* Adjust based on your header height */
+}
+
+/* Media query for desktop view with open sidebar */
+@media (min-width: 960px) {
+  .layoutContainer.sidebarOpen {
+    margin-left: 280px; /* Width of the sidebar */
+  }
+  
+  .mainContent {
+    transition: margin-left 0.3s ease-in-out;
+  }
+}
+
+/* Add page transitions */
+.pageTransition {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 
