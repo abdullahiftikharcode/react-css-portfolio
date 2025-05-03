@@ -1,0 +1,119 @@
+/* src/pages/AboutMe/AboutMe.module.css */
+.aboutContainer {
+  padding: 2rem 0;
+}
+
+.sectionLabel {
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem !important;
+  font-size: 0.9rem !important;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 1px;
+}
+
+/* About Section */
+.aboutSection {
+  margin-bottom: 4rem;
+}
+
+.aboutContent {
+  padding-left: 1rem;
+}
+
+.mainHeading {
+  font-weight: 700 !important;
+  margin-bottom: 2rem !important;
+  line-height: 1.3 !important;
+  font-size: 2.5rem !important;
+}
+
+.aboutText {
+  max-width: 800px;
+  margin-top: 2rem;
+}
+
+.aboutText p {
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 1.5rem;
+  line-height: 1.7;
+  font-size: 1.1rem;
+}
+
+/* Skills Section */
+.skillsSection {
+  margin-bottom: 4rem;
+}
+
+/* Coding Skills Section */
+.codingSkillsSection {
+  margin-bottom: 4rem;
+}
+
+/* Education Section */
+.educationSection {
+  margin-bottom: 4rem;
+}
+
+.tableContainer {
+  background-color: rgba(30, 30, 30, 0.7) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.table {
+  min-width: 650px;
+}
+
+/* Table Styles */
+.table th {
+  font-weight: 700 !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+  padding: 1rem !important;
+  font-size: 0.9rem !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table td {
+  padding: 1rem !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.table tr:hover {
+  background-color: rgba(33, 150, 243, 0.1) !important;
+}
+
+/* Responsive styles */
+@media (max-width: 960px) {
+  .mainHeading {
+    font-size: 1.8rem !important;
+  }
+  
+  .aboutText p {
+    font-size: 1rem;
+  }
+  
+  .aboutContent {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .sectionLabel {
+    text-align: center;
+    margin-bottom: 1rem !important;
+  }
+  
+  .mainHeading {
+    font-size: 1.5rem !important;
+    text-align: center;
+  }
+  
+  .aboutText {
+    text-align: center;
+  }
+} 
