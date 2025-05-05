@@ -52,7 +52,7 @@ const TextScrambler = ({ text, isActive }) => {
 
   useEffect(() => {
     if (!isHovering) {
-      // Reset text when not hovering
+      // Reset text immediately when not hovering
       setDisplayText(text)
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
@@ -110,7 +110,10 @@ const TextScrambler = ({ text, isActive }) => {
   return (
     <span
       onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}
+      onMouseLeave={() => {
+        setIsHovering(false)
+        setDisplayText(text) // Immediately reset text when mouse leaves
+      }}
       style={{
         fontFamily: "inherit",
         fontWeight: isActive ? "bold" : "normal",

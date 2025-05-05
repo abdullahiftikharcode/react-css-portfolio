@@ -16,14 +16,19 @@ export function useTextScrambler(originalText, speed = 50) {
     setIsScrambling(true)
   }
 
-  // Function to stop the scrambling effect
+  // Function to stop the scrambling effect and immediately reset text
   const stopScramble = () => {
     setIsScrambling(false)
     setText(originalText)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
   }
 
   useEffect(() => {
     if (!isScrambling) {
+      setText(originalText)
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
         intervalRef.current = null
@@ -49,8 +54,8 @@ export function useTextScrambler(originalText, speed = 50) {
         return
       }
 
-      setText((prevText) => {
-        return originalText
+      setText(
+        originalText
           .split("")
           .map((char, index) => {
             // If it's a space, keep it as a space
@@ -65,7 +70,7 @@ export function useTextScrambler(originalText, speed = 50) {
             return chars[Math.floor(Math.random() * chars.length)]
           })
           .join("")
-      })
+      )
 
       iteration += 1
     }, speed)

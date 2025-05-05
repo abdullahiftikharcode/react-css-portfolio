@@ -50,6 +50,7 @@
     "cmdk": "1.0.4",
     "date-fns": "4.1.0",
     "embla-carousel-react": "8.5.1",
+    "formik": "^2.2.9",
     "framer-motion": "latest",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
@@ -69,6 +70,7 @@
     "tailwindcss-animate": "^1.0.7",
     "vaul": "^0.9.6",
     "web-vitals": "^4.2.4",
+    "yup": "^0.32.11",
     "zod": "latest"
   },
   "devDependencies": {

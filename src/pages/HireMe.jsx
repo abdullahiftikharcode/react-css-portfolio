@@ -1,111 +1,60 @@
 "use client"
 import { useState } from "react"
-
 import { Box, Container, Typography, TextField, Button, Alert, useTheme, CircularProgress } from "@mui/material"
 import Layout from "../layouts/Layout"
 import { motion } from "framer-motion"
-import { z } from "zod"
+import * as Yup from "yup"
+import { Formik, Form } from "formik"
 import ScrollReveal from "../components/ScrollReveal"
 import ParticleBackground from "../components/ui/particle-background"
 
-// Define validation schema using Zod
-const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(50, "Name must be less than 50 characters"),
-  email: z.string().email("Please enter a valid email address"),
-  phone: z
-    .string()
+// Define validation schema using Yup
+const validationSchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Name must be at least 2 characters")
+    .max(50, "Name must be less than 50 characters")
+    .required("Name is required"),
+  email: Yup.string()
+    .email("Please enter a valid email address")
+    .required("Email is required"),
+  phone: Yup.string()
+    .matches(/^\+?[0-9\s\-()]+$/, "Please enter a valid phone number")
     .min(10, "Phone number must be at least 10 digits")
-    .regex(/^\+?[0-9\s\-()]+$/, "Please enter a valid phone number"),
-  message: z
-    .string()
+    .required("Phone number is required"),
+  message: Yup.string()
     .min(10, "Message must be at least 10 characters")
-    .max(1000, "Message must be less than 1000 characters"),
+    .max(1000, "Message must be less than 1000 characters")
+    .required("Message is required"),
 })
 
 export default function HireMePage() {
   const theme = useTheme()
-  const [formData, setFormData] = useState({
+  const [alertMessage, setAlertMessage] = useState("")
+  const [alertSeverity, setAlertSeverity] = useState("success")
+  const [formSubmitted, setFormSubmitted] = useState(false)
+
+  const initialValues = {
     name: "",
     email: "",
     phone: "",
     message: "",
-  })
-  const [formErrors, setFormErrors] = useState({})
-  const [formSubmitted, setFormSubmitted] = useState(false)
-  const [alertMessage, setAlertMessage] = useState("")
-  const [alertSeverity, setAlertSeverity] = useState("success")
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({
-      ...formData,
-      [name]: value,
-    })
-
-    // Clear error when user starts typing
-    if (formErrors[name]) {
-      setFormErrors({
-        ...formErrors,
-        [name]: "",
-      })
-    }
   }
 
-  const validateForm = () => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
-      formSchema.parse(formData)
-      return {}
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      setAlertMessage("Your message has been sent successfully! I'll get back to you soon.")
+      setAlertSeverity("success")
+      setFormSubmitted(true)
+      resetForm()
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        const errors = {}
-        error.errors.forEach((err) => {
-          if (err.path[0]) {
-            errors[err.path[0]] = err.message
-          }
-        })
-        return errors
-      }
-      return { message: "An unknown error occurred" }
-    }
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const errors = validateForm()
-    setFormErrors(errors)
-
-    if (Object.keys(errors).length === 0) {
-      // Form is valid, submit it
-      setIsSubmitting(true)
-
-      try {
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500))
-
-        setAlertMessage("Your message has been sent successfully! I'll get back to you soon.")
-        setAlertSeverity("success")
-        setFormSubmitted(true)
-
-        // Reset form
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
-        })
-      } catch (error) {
-        setAlertMessage("There was an error sending your message. Please try again later.")
-        setAlertSeverity("error")
-        setFormSubmitted(true)
-      } finally {
-        setIsSubmitting(false)
-      }
-    } else {
-      // Form has errors
-      setAlertMessage("Please fix the errors in the form before submitting.")
+      setAlertMessage("There was an error sending your message. Please try again later.")
       setAlertSeverity("error")
       setFormSubmitted(true)
+    } finally {
+      setSubmitting(false)
     }
   }
 
@@ -196,112 +145,124 @@ export default function HireMePage() {
             </ScrollReveal>
           )}
 
-          <form onSubmit={handleSubmit}>
-            <ScrollReveal delay={0.2}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                name="name"
-                placeholder="Name"
-                value={formData.name}
-                onChange={handleChange}
-                error={!!formErrors.name}
-                helperText={formErrors.name}
-                sx={inputStyles}
-                InputLabelProps={{ shrink: false }}
-                required
-              />
-            </ScrollReveal>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ values, errors, touched, handleChange, handleBlur, isSubmitting }) => (
+              <Form>
+                <ScrollReveal delay={0.2}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="name"
+                    placeholder="Name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.name && Boolean(errors.name)}
+                    helperText={touched.name && errors.name}
+                    sx={inputStyles}
+                    InputLabelProps={{ shrink: false }}
+                    required
+                  />
+                </ScrollReveal>
 
-            <ScrollReveal delay={0.3}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                name="email"
-                placeholder="Email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange}
-                error={!!formErrors.email}
-                helperText={formErrors.email}
-                sx={inputStyles}
-                InputLabelProps={{ shrink: false }}
-                required
-              />
-            </ScrollReveal>
+                <ScrollReveal delay={0.3}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="email"
+                    placeholder="Email"
+                    type="email"
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.email && Boolean(errors.email)}
+                    helperText={touched.email && errors.email}
+                    sx={inputStyles}
+                    InputLabelProps={{ shrink: false }}
+                    required
+                  />
+                </ScrollReveal>
 
-            <ScrollReveal delay={0.4}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                name="phone"
-                placeholder="Phone"
-                value={formData.phone}
-                onChange={handleChange}
-                error={!!formErrors.phone}
-                helperText={formErrors.phone}
-                sx={inputStyles}
-                InputLabelProps={{ shrink: false }}
-                required
-              />
-            </ScrollReveal>
+                <ScrollReveal delay={0.4}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="phone"
+                    placeholder="Phone"
+                    value={values.phone}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.phone && Boolean(errors.phone)}
+                    helperText={touched.phone && errors.phone}
+                    sx={inputStyles}
+                    InputLabelProps={{ shrink: false }}
+                    required
+                  />
+                </ScrollReveal>
 
-            <ScrollReveal delay={0.5}>
-              <TextField
-                fullWidth
-                variant="outlined"
-                name="message"
-                placeholder="Message"
-                multiline
-                rows={6}
-                value={formData.message}
-                onChange={handleChange}
-                error={!!formErrors.message}
-                helperText={formErrors.message}
-                sx={inputStyles}
-                InputLabelProps={{ shrink: false }}
-                required
-              />
-            </ScrollReveal>
+                <ScrollReveal delay={0.5}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    name="message"
+                    placeholder="Message"
+                    multiline
+                    rows={6}
+                    value={values.message}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    error={touched.message && Boolean(errors.message)}
+                    helperText={touched.message && errors.message}
+                    sx={inputStyles}
+                    InputLabelProps={{ shrink: false }}
+                    required
+                  />
+                </ScrollReveal>
 
-            <ScrollReveal delay={0.6}>
-              <motion.div
-                whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
-                whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-              >
-                <Button
-                  type="submit"
-                  variant="contained"
-                  disabled={isSubmitting}
-                  sx={{
-                    mt: 2,
-                    py: 1.5,
-                    px: 4,
-                    backgroundColor: "white",
-                    color: "black",
-                    borderRadius: 0,
-                    fontWeight: "bold",
-                    "&:hover": {
-                      backgroundColor: "rgba(255, 255, 255, 0.8)",
-                    },
-                    "&.Mui-disabled": {
-                      backgroundColor: "rgba(255, 255, 255, 0.3)",
-                      color: "rgba(0, 0, 0, 0.5)",
-                    },
-                  }}
-                >
-                  {isSubmitting ? (
-                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                      <CircularProgress size={20} sx={{ color: "black", mr: 1, opacity: 0.7 }} />
-                      Sending...
-                    </Box>
-                  ) : (
-                    "SEND MESSAGE"
-                  )}
-                </Button>
-              </motion.div>
-            </ScrollReveal>
-          </form>
+                <ScrollReveal delay={0.6}>
+                  <motion.div
+                    whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+                    whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
+                  >
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      disabled={isSubmitting}
+                      sx={{
+                        mt: 2,
+                        py: 1.5,
+                        px: 4,
+                        backgroundColor: "white",
+                        color: "black",
+                        borderRadius: 0,
+                        fontWeight: "bold",
+                        "&:hover": {
+                          backgroundColor: "rgba(255, 255, 255, 0.8)",
+                        },
+                        "&.Mui-disabled": {
+                          backgroundColor: "rgba(255, 255, 255, 0.3)",
+                          color: "rgba(0, 0, 0, 0.5)",
+                        },
+                      }}
+                    >
+                      {isSubmitting ? (
+                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                          <CircularProgress size={20} sx={{ color: "black", mr: 1, opacity: 0.7 }} />
+                          Sending...
+                        </Box>
+                      ) : (
+                        "SEND MESSAGE"
+                      )}
+                    </Button>
+                  </motion.div>
+                </ScrollReveal>
+              </Form>
+            )}
+          </Formik>
 
           <ScrollReveal delay={0.7}>
             <Box sx={{ mt: 6 }}>
