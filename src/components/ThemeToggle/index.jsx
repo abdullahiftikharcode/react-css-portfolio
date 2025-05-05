@@ -1,7 +1,8 @@
 "use client"
 import { useState, useEffect } from "react"
 import { IconButton, useTheme } from "@mui/material"
-import { useThemeContext } from "../ThemeRegistry"
+import { DarkMode, LightMode } from "@mui/icons-material"
+import { useThemeContext } from "../../context/ThemeContext"
 import { motion } from "framer-motion"
 
 export default function ThemeToggle() {
