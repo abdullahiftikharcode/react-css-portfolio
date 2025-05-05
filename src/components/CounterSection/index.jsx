@@ -3,7 +3,7 @@ import { useState, useEffect } from "react"
 import { Box, Grid, Typography, useTheme } from "@mui/material"
 import { motion } from "framer-motion"
 import CountUp from "react-countup"
-import { useLanguage } from "../LanguageContext"
+import { useLanguage } from "../../context/LanguageContext"
 import { useScrollAnimation } from "../../hooks/useScrollAnimation"
 
 export default function CounterSection() {

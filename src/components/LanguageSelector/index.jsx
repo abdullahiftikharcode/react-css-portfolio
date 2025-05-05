@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Box, Menu, MenuItem, IconButton, Typography } from "@mui/material"
 import { Language } from "@mui/icons-material"
-import { useLanguage } from "../LanguageContext"
+import { useLanguage } from "../../context/LanguageContext"
 import { motion } from "framer-motion"
 
 const languages = [

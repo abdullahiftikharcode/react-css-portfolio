@@ -28,7 +28,7 @@ import {
 import { useNavigate } from "react-router-dom"
 import { motion, AnimatePresence } from "framer-motion"
 import { useState, useEffect, useRef } from "react"
-import { useThemeContext } from "../ThemeRegistry"
+import { useThemeContext } from "../../context/ThemeContext"
 import ThemeToggle from "../ThemeToggle"
 import profileImage from "../../assets/images/imgme.jpg"
 import resumePDF from "../../assets/documents/AbdullahIftikharResume.pdf"

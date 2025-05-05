@@ -3,7 +3,7 @@ import { Box, Container, Typography, Button, Grid, useTheme } from "@mui/materia
 import Layout from "../layouts/Layout"
 import CounterSection from "../components/CounterSection"
 import { motion } from "framer-motion"
-import ParticleBackground from "../components/ParticleBackground"
+import ParticleBackground from "../components/ui/particle-background"
 import { useLanguage } from "../context/LanguageContext"
 import ScrollReveal from "../components/ScrollReveal"
 import profileImage from "../assets/images/imgme.jpg"

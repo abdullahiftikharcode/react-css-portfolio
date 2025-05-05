@@ -4,7 +4,7 @@ import { Box, Container, Typography, Button, useTheme } from "@mui/material"
 import Layout from "../layouts/Layout"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
-import ParticleBackground from "../components/ParticleBackground"
+import ParticleBackground from "../components/ui/particle-background"
 
 export default function NotFound() {
   const navigate = useNavigate()

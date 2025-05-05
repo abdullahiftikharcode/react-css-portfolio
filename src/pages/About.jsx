@@ -19,7 +19,7 @@ import SkillCard from "../components/SkillCard"
 import { motion, useInView, useAnimation } from "framer-motion"
 import ScrollReveal from "../components/ScrollReveal"
 import { staggerContainer } from "../hooks/useScrollAnimation"
-import ParticleBackground from "../components/ParticleBackground"
+import ParticleBackground from "../components/ui/particle-background"
 
 export default function AboutPage() {
   const theme = useTheme()

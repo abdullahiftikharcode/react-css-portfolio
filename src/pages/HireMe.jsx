@@ -6,7 +6,7 @@ import Layout from "../layouts/Layout"
 import { motion } from "framer-motion"
 import { z } from "zod"
 import ScrollReveal from "../components/ScrollReveal"
-import ParticleBackground from "../components/ParticleBackground"
+import ParticleBackground from "../components/ui/particle-background"
 
 // Define validation schema using Zod
 const formSchema = z.object({

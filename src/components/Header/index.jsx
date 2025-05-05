@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion"
 import ThemeToggle from "../ThemeToggle"
 import ScrambleText from "../ScrambleText"
 import LanguageSelector from "../LanguageSelector"
-import { useLanguage } from "../LanguageContext"
+import { useLanguage } from "../../context/LanguageContext"
 
 export default function Header({ activePage, title, toggleSidebar }) {
   const theme = useTheme()

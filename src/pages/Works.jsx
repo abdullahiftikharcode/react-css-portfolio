@@ -26,7 +26,7 @@ import { Search, FilterList, Sort } from "@mui/icons-material"
 import { motion } from "framer-motion"
 import ScrollReveal from "../components/ScrollReveal"
 import { staggerContainer } from "../hooks/useScrollAnimation"
-import ParticleBackground from "../components/ParticleBackground"
+import ParticleBackground from "../components/ui/particle-background"
 
 export default function WorksPage() {
   const theme = useTheme()
