@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { Box, Container, Typography, Button, Grid, useTheme } from "@mui/material"
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
 import CounterSection from "../components/CounterSection"
 import { motion } from "framer-motion"
 import ParticleBackground from "../components/ParticleBackground"

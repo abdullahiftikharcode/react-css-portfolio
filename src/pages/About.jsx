@@ -14,7 +14,7 @@ import {
   TableRow,
   useTheme,
 } from "@mui/material"
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
 import SkillCard from "../components/SkillCard"
 import { motion, useInView, useAnimation } from "framer-motion"
 import ScrollReveal from "../components/ScrollReveal"

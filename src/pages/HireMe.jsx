@@ -2,7 +2,7 @@
 import { useState } from "react"
 
 import { Box, Container, Typography, TextField, Button, Alert, useTheme, CircularProgress } from "@mui/material"
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
 import { motion } from "framer-motion"
 import { z } from "zod"
 import ScrollReveal from "../components/ScrollReveal"

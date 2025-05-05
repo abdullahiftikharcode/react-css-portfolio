@@ -1,7 +1,7 @@
 "use client"
 
 import { Box, Container, Typography, Button, useTheme } from "@mui/material"
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
 import ParticleBackground from "../components/ParticleBackground"

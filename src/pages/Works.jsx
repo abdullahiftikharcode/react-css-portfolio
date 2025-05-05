@@ -18,7 +18,7 @@ import {
   Chip,
   Button,
 } from "@mui/material"
-import Layout from "../components/Layout"
+import Layout from "../layouts/Layout"
 import RepositoryCard from "../components/RepositoryCard"
 import RepositoryFallback from "../components/RepositoryFallback"
 import { useGitHubRepos } from "../hooks/useGitHubRepos"

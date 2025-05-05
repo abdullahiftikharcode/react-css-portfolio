@@ -1,10 +1,10 @@
 "use client"
 import { useState, useEffect } from "react"
 import { Box, useMediaQuery, useTheme } from "@mui/material"
-import Header from "../Header"
-import Footer from "../Footer"
-import Sidebar from "../Sidebar"
-import PageTransition from "../PageTransition"
+import Header from "../components/Header"
+import Footer from "../components/Footer"
+import Sidebar from "../components/Sidebar"
+import PageTransition from "../components/PageTransition"
 import { motion } from "framer-motion"
 
 export default function Layout({ children, activePage, title }) {
