@@ -13,8 +13,6 @@ import {
   TableHead,
   TableRow,
   useTheme,
-  CircularProgress,
-  Skeleton,
 } from "@mui/material"
 import Layout from "../layouts/Layout"
 import SkillCard from "../components/SkillCard"
@@ -26,38 +24,30 @@ import ParticleBackground from "../components/ui/particle-background"
 export default function AboutPage() {
   const theme = useTheme()
   const skillsRef = useRef(null)
-  const isInView = useInView(skillsRef, { once: true, amount: 0.2 })
+  const isInView = useInView(skillsRef, { once: true, amount: 0.2, rootMargin: "-50px" })
   const controls = useAnimation()
-  const [pageLoading, setPageLoading] = useState(true)
-  const [skillsLoading, setSkillsLoading] = useState(true)
-  const [educationLoading, setEducationLoading] = useState(true)
+  const [skillValues, setSkillValues] = useState({})
 
+  // Start animation when skill bars come into view
   useEffect(() => {
     if (isInView) {
       controls.start("visible")
+      
+      // Animate skill bars with a staggered effect
+      const timeoutIds = codingSkills.map((skill, index) => {
+        return setTimeout(() => {
+          setSkillValues(prev => ({
+            ...prev,
+            [skill.name]: skill.value
+          }))
+        }, index * 150)
+      })
+      
+      return () => {
+        timeoutIds.forEach(id => clearTimeout(id))
+      }
     }
   }, [isInView, controls])
-
-  // Simulate page loading
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setPageLoading(false)
-    }, 800)
-    
-    const skillsTimer = setTimeout(() => {
-      setSkillsLoading(false)
-    }, 1200)
-    
-    const educationTimer = setTimeout(() => {
-      setEducationLoading(false)
-    }, 1500)
-    
-    return () => {
-      clearTimeout(timer)
-      clearTimeout(skillsTimer)
-      clearTimeout(educationTimer)
-    }
-  }, [])
 
   const skills = [
     { name: "FIGMA", icon: "figma" },
@@ -100,8 +90,6 @@ export default function AboutPage() {
 
   // Add animation class to table rows when they come into view
   useEffect(() => {
-    if (educationLoading) return;
-    
     const tableRows = document.querySelectorAll(".education-table tbody tr")
     const observer = new IntersectionObserver(
       (entries) => {
@@ -125,28 +113,7 @@ export default function AboutPage() {
         observer.unobserve(row)
       })
     }
-  }, [educationLoading])
-
-  if (pageLoading) {
-    return (
-      <Layout activePage="ABOUTME" title="ABOUT ME">
-        <ParticleBackground />
-        <Box 
-          sx={{ 
-            display: 'flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            minHeight: 'calc(100vh - 150px)',
-            flexDirection: 'column',
-            gap: 2
-          }}
-        >
-          <CircularProgress size={60} thickness={4} color="inherit" />
-          <Typography variant="h6">Loading about me...</Typography>
-        </Box>
-      </Layout>
-    )
-  }
+  }, [])
 
   return (
     <Layout activePage="ABOUTME" title="ABOUT ME">
@@ -212,36 +179,17 @@ export default function AboutPage() {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={10}>
-                {skillsLoading ? (
+                <motion.div variants={staggerContainer} initial="hidden" animate="visible">
                   <Grid container spacing={2}>
-                    {[1, 2, 3, 4].map((index) => (
+                    {skills.map((skill, index) => (
                       <Grid item xs={12} sm={6} md={6} key={index}>
-                        <Skeleton 
-                          variant="rectangular" 
-                          width="100%" 
-                          height={120} 
-                          animation="wave" 
-                          sx={{ 
-                            bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                            borderRadius: 2
-                          }}
-                        />
+                        <ScrollReveal delay={index * 0.1} direction="scale">
+                          <SkillCard name={skill.name} icon={skill.icon} />
+                        </ScrollReveal>
                       </Grid>
                     ))}
                   </Grid>
-                ) : (
-                  <motion.div variants={staggerContainer} initial="hidden" animate="visible">
-                    <Grid container spacing={2}>
-                      {skills.map((skill, index) => (
-                        <Grid item xs={12} sm={6} md={6} key={index}>
-                          <ScrollReveal delay={index * 0.1} direction="scale">
-                            <SkillCard name={skill.name} icon={skill.icon} />
-                          </ScrollReveal>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </motion.div>
-                )}
+                </motion.div>
               </Grid>
             </Grid>
           </Box>
@@ -265,38 +213,19 @@ export default function AboutPage() {
                             <Typography variant="body1" fontWeight="medium" color={theme.palette.mode === "dark" ? "white" : "black"}>
                               {skill.name}
                             </Typography>
-                            {skillsLoading ? (
-                              <Skeleton 
-                                variant="rectangular" 
-                                width={40} 
-                                height={22} 
-                                animation="wave" 
-                                sx={{ 
-                                  bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                                  borderRadius: 1
-                                }}
-                              />
-                            ) : (
-                              <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                                transition={{ duration: 0.5, delay: index * 0.1 + 0.5 }}
-                              >
-                                <Typography
-                                  variant="body2"
-                                  sx={{
-                                    color: theme.palette.mode === "dark" ? "white" : "black",
-                                    bgcolor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
-                                    px: 1,
-                                    py: 0.5,
-                                    borderRadius: 1,
-                                    fontSize: "0.75rem",
-                                  }}
-                                >
-                                  {`${skill.value}%`}
-                                </Typography>
-                              </motion.div>
-                            )}
+                            <Typography
+                              variant="body2"
+                              sx={{
+                                color: theme.palette.mode === "dark" ? "white" : "black",
+                                bgcolor: theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
+                                px: 1,
+                                py: 0.5,
+                                borderRadius: 1,
+                                fontSize: "0.75rem",
+                              }}
+                            >
+                              {`${skill.value}%`}
+                            </Typography>
                           </Box>
                           <Box
                             sx={{
@@ -307,35 +236,18 @@ export default function AboutPage() {
                               overflow: "hidden",
                             }}
                           >
-                            {skillsLoading ? (
-                              <Skeleton 
-                                variant="rectangular" 
-                                width="100%" 
-                                height={6}
-                                animation="wave"
-                                sx={{ 
-                                  bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                                }}
-                              />
-                            ) : (
-                              <motion.div
-                                initial={{ width: 0 }}
-                                animate={isInView ? { width: `${skill.value}%` } : { width: 0 }}
-                                transition={{
-                                  duration: 1.2,
-                                  delay: index * 0.1 + 0.2,
-                                  ease: "easeOut",
-                                }}
-                                style={{
-                                  position: "absolute",
-                                  top: 0,
-                                  left: 0,
-                                  height: "100%",
-                                  backgroundColor: getSkillColor(skill.value),
-                                  borderRadius: 4,
-                                }}
-                              />
-                            )}
+                            <Box
+                              sx={{
+                                position: "absolute",
+                                top: 0,
+                                left: 0,
+                                height: "100%",
+                                width: `${skillValues[skill.name] || 0}%`,
+                                background: getSkillGradient(skill.value),
+                                borderRadius: 4,
+                                transition: "width 1.5s cubic-bezier(0.65, 0, 0.35, 1)",
+                              }}
+                            />
                           </Box>
                         </Box>
                       </ScrollReveal>
@@ -356,77 +268,47 @@ export default function AboutPage() {
                 </Typography>
               </Grid>
               <Grid item xs={12} md={10}>
-                {educationLoading ? (
-                  <Box sx={{ width: '100%' }}>
-                    <Skeleton 
-                      variant="rectangular" 
-                      width="100%" 
-                      height={50} 
-                      animation="wave" 
-                      sx={{ 
-                        bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.05)',
-                        mb: 1,
-                        borderRadius: 1
-                      }}
-                    />
-                    {[1, 2, 3].map((index) => (
-                      <Skeleton 
-                        key={index}
-                        variant="rectangular" 
-                        width="100%" 
-                        height={60} 
-                        animation="wave" 
-                        sx={{ 
-                          bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.02)',
-                          mb: 1,
-                          borderRadius: 1
-                        }}
-                      />
-                    ))}
-                  </Box>
-                ) : (
-                  <TableContainer component={Paper} className="education-table">
-                    <Table
-                      sx={{
-                        "& th": {
-                          backgroundColor: theme.palette.mode === "dark" ? "rgba(30, 30, 30, 0.6)" : "#f0f0f0",
-                          fontWeight: 600,
-                        },
-                        "& td, & th": {
-                          padding: "16px",
-                          borderBottom: `1px solid ${
-                            theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
-                          }`,
-                        },
-                        "& tr:nth-of-type(even)": {
-                          backgroundColor: theme.palette.mode === "dark" ? "rgba(30, 30, 30, 0.3)" : "rgba(0, 0, 0, 0.02)",
-                        },
-                        "& tr.fade-in": {
-                          animation: "fadeIn 0.6s ease forwards",
-                        },
-                      }}
-                    >
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Institution</TableCell>
-                          <TableCell>Qualification</TableCell>
-                          <TableCell>Year</TableCell>
-                          <TableCell>Score</TableCell>
+                <TableContainer component={Paper} className="education-table">
+                  <Table
+                    sx={{
+                      "& th": {
+                        backgroundColor: theme.palette.mode === "dark" ? "rgba(30, 30, 30, 0.6)" : "#f0f0f0",
+                        fontWeight: 600,
+                      },
+                      "& td, & th": {
+                        padding: "16px",
+                        borderBottom: `1px solid ${
+                          theme.palette.mode === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"
+                        }`,
+                      },
+                      "& tr:nth-of-type(even)": {
+                        backgroundColor: theme.palette.mode === "dark" ? "rgba(30, 30, 30, 0.3)" : "rgba(0, 0, 0, 0.02)",
+                      },
+                      "& tr.fade-in": {
+                        animation: "fadeIn 0.6s ease forwards",
+                      },
+                    }}
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Institution</TableCell>
+                        <TableCell>Qualification</TableCell>
+                        <TableCell>Year</TableCell>
+                        <TableCell>Score</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {education.map((item, index) => (
+                        <TableRow key={index}>
+                          <TableCell>{item.institution}</TableCell>
+                          <TableCell>{item.qualification}</TableCell>
+                          <TableCell>{item.year}</TableCell>
+                          <TableCell>{item.score}</TableCell>
                         </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {education.map((item, index) => (
-                          <TableRow key={index}>
-                            <TableCell>{item.institution}</TableCell>
-                            <TableCell>{item.qualification}</TableCell>
-                            <TableCell>{item.year}</TableCell>
-                            <TableCell>{item.score}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TableContainer>
-                )}
+                      ))}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </Grid>
             </Grid>
           </ScrollReveal>
@@ -434,6 +316,24 @@ export default function AboutPage() {
       </Container>
     </Layout>
   )
+}
+
+// Helper function to get gradient colors based on skill level
+function getSkillGradient(value) {
+  if (value >= 90) {
+    // Green gradient for high proficiency
+    return "linear-gradient(90deg, #2e7d32 0%, #4caf50 100%)"
+  }
+  if (value >= 70) {
+    // Blue gradient for good proficiency
+    return "linear-gradient(90deg, #1565c0 0%, #2196f3 100%)"
+  }
+  if (value >= 50) {
+    // Orange gradient for moderate proficiency
+    return "linear-gradient(90deg, #e65100 0%, #ff9800 100%)"
+  }
+  // Red gradient for basic proficiency
+  return "linear-gradient(90deg, #b71c1c 0%, #f44336 100%)"
 }
 
 function getSkillColor(value) {

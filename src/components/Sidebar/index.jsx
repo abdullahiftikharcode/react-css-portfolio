@@ -294,6 +294,11 @@ export default function Sidebar({ open, activePage, onClose }) {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 25 }}
+                whileHover={{ 
+                  scale: 1.1,
+                  rotate: [0, -5, 5, -5, 0],
+                  boxShadow: "0 0 15px rgba(255, 255, 255, 0.5)"
+                }}
               >
                 <Box
                   component="img"
@@ -306,7 +311,10 @@ export default function Sidebar({ open, activePage, onClose }) {
                     objectFit: "cover",
                     border: `2px solid ${theme.palette.mode === "dark" ? "white" : "black"}`,
                     mb: 2,
-                    transition: "width 0.3s ease, height 0.3s ease",
+                    transition: "width 0.3s ease, height 0.3s ease, transform 0.3s ease, filter 0.3s ease",
+                    "&:hover": {
+                      filter: "brightness(1.2)",
+                    },
                   }}
                 />
               </motion.div>

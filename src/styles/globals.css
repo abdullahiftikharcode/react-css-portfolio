@@ -59,11 +59,65 @@ body {
 
 /* Skill bar animations */
 @keyframes fillAnimation {
-  from {
+  0% {
     width: 0;
+    opacity: 0.3;
   }
-  to {
-    width: var(--target-width);
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* New skill bar animation */
+@keyframes skillBarFill {
+  0% {
+    width: 0;
+    background-position: 0 0;
+  }
+  100% {
+    width: var(--skill-value);
+    background-position: 100% 0;
+  }
+}
+
+.skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+  width: 0 !important; /* Force width to 0 initially */
+}
+
+.skill-bar-fill.animate {
+  animation: skillBarFill 1.5s forwards ease-out;
+  width: var(--skill-value) !important; /* Set to final width */
+  background-size: 200% 100%;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.skill-bar-fill.animate::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    rgba(255, 255, 255, 0) 0%, 
+    rgba(255, 255, 255, 0.2) 50%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-100%);
+  animation: shimmerSkill 1.8s infinite;
+}
+
+@keyframes shimmerSkill {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
   }
 }
 

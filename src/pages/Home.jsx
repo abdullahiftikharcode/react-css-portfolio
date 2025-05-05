@@ -16,6 +16,7 @@ export default function Home() {
   const { t } = useLanguage()
   const [pageLoading, setPageLoading] = useState(true)
   const [imageLoaded, setImageLoaded] = useState(false)
+  const [profileHovered, setProfileHovered] = useState(false)
 
   useEffect(() => {
     // Simulate page content loading
@@ -37,6 +38,18 @@ export default function Home() {
       boxShadow: theme.palette.mode === "dark" ? "0 0 8px rgba(255, 255, 255, 0.5)" : "0 0 8px rgba(0, 0, 0, 0.3)",
     },
     tap: { scale: 0.95 },
+  }
+
+  const profileImageVariants = {
+    hover: { 
+      scale: 1.05,
+      rotateZ: [0, -3, 3, -3, 0],
+      transition: { 
+        scale: { duration: 0.3 },
+        rotateZ: { duration: 0.5, repeat: Infinity, repeatType: "loop" }
+      }
+    },
+    initial: { scale: 1 }
   }
 
   if (pageLoading) {
@@ -138,48 +151,81 @@ export default function Home() {
 
           <Grid item xs={12} md={6} sx={{ display: "flex", justifyContent: "center" }}>
             <ScrollReveal direction="scale">
-              <Box
-                sx={{
+              <motion.div
+                initial="initial"
+                animate={profileHovered ? "hover" : "initial"}
+                variants={profileImageVariants}
+                onHoverStart={() => setProfileHovered(true)}
+                onHoverEnd={() => setProfileHovered(false)}
+                style={{
                   position: 'relative',
-                  width: { xs: 280, md: 350 },
-                  height: { xs: 280, md: 350 },
-                  borderRadius: "50%",
-                  overflow: "hidden",
-                  boxShadow:
-                    theme.palette.mode === "dark"
-                      ? "0 8px 20px rgba(255, 255, 255, 0.2)"
-                      : "0 8px 20px rgba(0, 0, 0, 0.2)",
-                  border: `3px solid ${theme.palette.mode === "dark" ? "white" : "black"}`,
+                  width: '100%',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
+                  cursor: 'pointer'
                 }}
               >
-                {!imageLoaded ? (
-                  <Skeleton 
-                    variant="circular" 
-                    width="100%" 
-                    height="100%" 
-                    animation="wave"
-                    sx={{ 
-                      bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
-                      transform: 'none'
-                    }}
-                  />
-                ) : (
-                  <Box
-                    component="img"
-                    src={profileImage}
-                    alt="Profile"
-                    sx={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: "cover",
-                      display: 'block'
-                    }}
-                  />
-                )}
-              </Box>
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: { xs: 280, md: 350 },
+                    height: { xs: 280, md: 350 },
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    boxShadow: profileHovered
+                      ? (theme.palette.mode === "dark" 
+                          ? "0 0 30px rgba(255, 255, 255, 0.4)" 
+                          : "0 0 30px rgba(0, 0, 0, 0.4)")
+                      : (theme.palette.mode === "dark"
+                          ? "0 8px 20px rgba(255, 255, 255, 0.2)"
+                          : "0 8px 20px rgba(0, 0, 0, 0.2)"),
+                    border: `3px solid ${theme.palette.mode === "dark" ? "white" : "black"}`,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    transition: "box-shadow 0.3s ease",
+                    "&::after": profileHovered ? {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: "linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 100%)",
+                      zIndex: 1
+                    } : {}
+                  }}
+                >
+                  {!imageLoaded ? (
+                    <Skeleton 
+                      variant="circular" 
+                      width="100%" 
+                      height="100%" 
+                      animation="wave"
+                      sx={{ 
+                        bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                        transform: 'none'
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      component="img"
+                      src={profileImage}
+                      alt="Profile"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: "cover",
+                        display: 'block',
+                        transition: "filter 0.3s ease, transform 0.3s ease",
+                        filter: profileHovered ? "brightness(1.1) contrast(1.1)" : "none",
+                        transform: profileHovered ? "scale(1.05)" : "scale(1)"
+                      }}
+                    />
+                  )}
+                </Box>
+              </motion.div>
             </ScrollReveal>
           </Grid>
         </Grid>
