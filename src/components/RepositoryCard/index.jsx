@@ -1,6 +1,7 @@
 "use client"
 
-import { Box, Card, Typography, Button, useTheme } from "@mui/material"
+import { useState, useEffect } from "react"
+import { Box, Card, Typography, Button, useTheme, Skeleton } from "@mui/material"
 import { Star, CallSplit, Code } from "@mui/icons-material"
 import { motion } from "framer-motion"
 import { getGitHubOGImageUrl } from "../../lib/github"
@@ -9,6 +10,8 @@ import { Link } from "react-router-dom"
 
 export default function RepositoryCard({ repo, index }) {
   const theme = useTheme()
+  const [imageLoaded, setImageLoaded] = useState(false)
+  const [imageLoading, setImageLoading] = useState(true)
 
   // Function to format repository name for display
   const formatRepoName = (name) => {
@@ -33,6 +36,29 @@ export default function RepositoryCard({ repo, index }) {
 
   // Get OG image URL
   const ogImageUrl = getGitHubOGImageUrl(repo)
+
+  // Preload the image
+  useEffect(() => {
+    if (!ogImageUrl) {
+      setImageLoading(false)
+      return
+    }
+    
+    const img = new Image()
+    img.src = ogImageUrl
+    img.onload = () => {
+      setImageLoaded(true)
+      setImageLoading(false)
+    }
+    img.onerror = () => {
+      setImageLoading(false)
+    }
+    
+    return () => {
+      img.onload = null
+      img.onerror = null
+    }
+  }, [ogImageUrl])
 
   // Card animation variants
   const cardVariants = {
@@ -71,7 +97,8 @@ export default function RepositoryCard({ repo, index }) {
               height: "50%",
               position: "relative",
               overflow: "hidden",
-              "&::before": {
+              backgroundColor: theme.palette.mode === "dark" ? "rgba(30, 30, 30, 0.9)" : "rgba(200, 200, 200, 0.5)",
+              "&::before": imageLoaded ? {
                 content: '""',
                 position: "absolute",
                 top: 0,
@@ -82,9 +109,26 @@ export default function RepositoryCard({ repo, index }) {
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 filter: "brightness(0.7)",
-              },
+              } : {},
             }}
           >
+            {imageLoading && (
+              <Box sx={{ width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Skeleton 
+                  variant="rectangular" 
+                  width="100%" 
+                  height="100%" 
+                  animation="wave"
+                  sx={{ 
+                    bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0
+                  }}
+                />
+              </Box>
+            )}
+            
             <Box
               sx={{
                 position: "absolute",

@@ -1,6 +1,7 @@
 "use client"
 
-import { Box, Container, Typography, Button, useTheme } from "@mui/material"
+import { useState, useEffect } from "react"
+import { Box, Container, Typography, Button, useTheme, CircularProgress } from "@mui/material"
 import Layout from "../layouts/Layout"
 import { useNavigate } from "react-router-dom"
 import { motion } from "framer-motion"
@@ -9,6 +10,37 @@ import ParticleBackground from "../components/ui/particle-background"
 export default function NotFound() {
   const navigate = useNavigate()
   const theme = useTheme()
+  const [pageLoading, setPageLoading] = useState(true)
+
+  useEffect(() => {
+    // Simulate page loading
+    const timer = setTimeout(() => {
+      setPageLoading(false)
+    }, 800)
+    
+    return () => clearTimeout(timer)
+  }, [])
+
+  if (pageLoading) {
+    return (
+      <Layout activePage="" title="Page Not Found">
+        <ParticleBackground />
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            minHeight: 'calc(100vh - 150px)',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <CircularProgress size={60} thickness={4} color="inherit" />
+          <Typography variant="h6">Loading...</Typography>
+        </Box>
+      </Layout>
+    )
+  }
 
   return (
     <Layout activePage="" title="Page Not Found">

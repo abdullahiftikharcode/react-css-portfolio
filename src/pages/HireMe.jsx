@@ -32,6 +32,15 @@ export default function HireMePage() {
   const [alertMessage, setAlertMessage] = useState("")
   const [alertSeverity, setAlertSeverity] = useState("success")
   const [formSubmitted, setFormSubmitted] = useState(false)
+  const [pageLoading, setPageLoading] = useState(true)
+
+  // Simulate page content loading
+  useState(() => {
+    const timer = setTimeout(() => {
+      setPageLoading(false)
+    }, 800)
+    return () => clearTimeout(timer)
+  }, [])
 
   const initialValues = {
     name: "",
@@ -89,6 +98,27 @@ export default function HireMePage() {
       marginTop: 0.5,
     },
     mb: 3,
+  }
+
+  if (pageLoading) {
+    return (
+      <Layout activePage="HIRE ME" title="HIRE ME">
+        <ParticleBackground />
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            minHeight: 'calc(100vh - 150px)',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <CircularProgress size={60} thickness={4} color="inherit" />
+          <Typography variant="h6">Loading form...</Typography>
+        </Box>
+      </Layout>
+    )
   }
 
   return (
@@ -166,6 +196,12 @@ export default function HireMePage() {
                     sx={inputStyles}
                     InputLabelProps={{ shrink: false }}
                     required
+                    disabled={isSubmitting}
+                    InputProps={{
+                      endAdornment: isSubmitting && (
+                        <CircularProgress size={20} sx={{ color: "rgba(255, 255, 255, 0.7)" }} />
+                      )
+                    }}
                   />
                 </ScrollReveal>
 
@@ -184,6 +220,12 @@ export default function HireMePage() {
                     sx={inputStyles}
                     InputLabelProps={{ shrink: false }}
                     required
+                    disabled={isSubmitting}
+                    InputProps={{
+                      endAdornment: isSubmitting && (
+                        <CircularProgress size={20} sx={{ color: "rgba(255, 255, 255, 0.7)" }} />
+                      )
+                    }}
                   />
                 </ScrollReveal>
 
@@ -201,6 +243,12 @@ export default function HireMePage() {
                     sx={inputStyles}
                     InputLabelProps={{ shrink: false }}
                     required
+                    disabled={isSubmitting}
+                    InputProps={{
+                      endAdornment: isSubmitting && (
+                        <CircularProgress size={20} sx={{ color: "rgba(255, 255, 255, 0.7)" }} />
+                      )
+                    }}
                   />
                 </ScrollReveal>
 
@@ -220,6 +268,7 @@ export default function HireMePage() {
                     sx={inputStyles}
                     InputLabelProps={{ shrink: false }}
                     required
+                    disabled={isSubmitting}
                   />
                 </ScrollReveal>
 
@@ -247,10 +296,11 @@ export default function HireMePage() {
                           backgroundColor: "rgba(255, 255, 255, 0.3)",
                           color: "rgba(0, 0, 0, 0.5)",
                         },
+                        minWidth: '180px',
                       }}
                     >
                       {isSubmitting ? (
-                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
                           <CircularProgress size={20} sx={{ color: "black", mr: 1, opacity: 0.7 }} />
                           Sending...
                         </Box>

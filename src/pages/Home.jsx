@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { Box, Container, Typography, Button, Grid, useTheme } from "@mui/material"
+import { Box, Container, Typography, Button, Grid, useTheme, CircularProgress, Skeleton } from "@mui/material"
+import { useState, useEffect } from "react"
 import Layout from "../layouts/Layout"
 import CounterSection from "../components/CounterSection"
 import { motion } from "framer-motion"
@@ -13,6 +14,22 @@ export default function Home() {
   const navigate = useNavigate()
   const theme = useTheme()
   const { t } = useLanguage()
+  const [pageLoading, setPageLoading] = useState(true)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  useEffect(() => {
+    // Simulate page content loading
+    const timer = setTimeout(() => {
+      setPageLoading(false)
+    }, 800)
+    
+    // Preload profile image
+    const img = new Image()
+    img.src = profileImage
+    img.onload = () => setImageLoaded(true)
+    
+    return () => clearTimeout(timer)
+  }, [])
 
   const buttonVariants = {
     hover: {
@@ -20,6 +37,27 @@ export default function Home() {
       boxShadow: theme.palette.mode === "dark" ? "0 0 8px rgba(255, 255, 255, 0.5)" : "0 0 8px rgba(0, 0, 0, 0.3)",
     },
     tap: { scale: 0.95 },
+  }
+
+  if (pageLoading) {
+    return (
+      <Layout activePage="HOME" title="M. Abdullah Iftikhar">
+        <ParticleBackground />
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            minHeight: 'calc(100vh - 150px)',
+            flexDirection: 'column',
+            gap: 2
+          }}
+        >
+          <CircularProgress size={60} thickness={4} color="inherit" />
+          <Typography variant="h6">Loading profile...</Typography>
+        </Box>
+      </Layout>
+    )
   }
 
   return (
@@ -112,19 +150,35 @@ export default function Home() {
                       ? "0 8px 20px rgba(255, 255, 255, 0.2)"
                       : "0 8px 20px rgba(0, 0, 0, 0.2)",
                   border: `3px solid ${theme.palette.mode === "dark" ? "white" : "black"}`,
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
-                <Box
-                  component="img"
-                  src={profileImage}
-                  alt="Profile"
-                  sx={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: "cover",
-                    display: 'block'
-                  }}
-                />
+                {!imageLoaded ? (
+                  <Skeleton 
+                    variant="circular" 
+                    width="100%" 
+                    height="100%" 
+                    animation="wave"
+                    sx={{ 
+                      bgcolor: theme.palette.mode === "dark" ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                      transform: 'none'
+                    }}
+                  />
+                ) : (
+                  <Box
+                    component="img"
+                    src={profileImage}
+                    alt="Profile"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: "cover",
+                      display: 'block'
+                    }}
+                  />
+                )}
               </Box>
             </ScrollReveal>
           </Grid>
